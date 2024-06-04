@@ -5,8 +5,6 @@ VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyApi", "CurrencyApi.csproj", "{5424AE05-F9E5-471D-863D-B57C6283562F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicApi", "..\MusicApi\MusicApi.csproj", "{1310F8D0-E346-408B-8B2A-F6305C7F9363}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{5424AE05-F9E5-471D-863D-B57C6283562F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5424AE05-F9E5-471D-863D-B57C6283562F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5424AE05-F9E5-471D-863D-B57C6283562F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1310F8D0-E346-408B-8B2A-F6305C7F9363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1310F8D0-E346-408B-8B2A-F6305C7F9363}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1310F8D0-E346-408B-8B2A-F6305C7F9363}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1310F8D0-E346-408B-8B2A-F6305C7F9363}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

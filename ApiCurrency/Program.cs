@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace CurrencyConverter
 {
@@ -8,7 +6,7 @@ namespace CurrencyConverter
     {
         private static readonly string apiKey = "56b4105bb7247af9e6067ad9";
 
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             Console.WriteLine("Conversor de Moedas");
 
@@ -17,29 +15,68 @@ namespace CurrencyConverter
 
             while (true)
             {
-                decimal amount = userInputService.GetAmount();
-                if (amount == 0)
-                {
-                    break;
-                }
+                Console.WriteLine("Selecione uma opção:");
+                Console.WriteLine("1. Converter moeda");
+                Console.WriteLine("2. Ver preço de 1 unidade de moeda em Reais");
+                Console.WriteLine("0. Sair");
 
-                string fromCurrency = userInputService.GetCurrency("Digite a moeda de origem (ex: BRL, ARS, USD, EUR): ");
-                string toCurrency = userInputService.GetCurrency("Digite a moeda de destino (ex: BRL, ARS, USD, EUR): ");
+                int option = userInputService.GetOption();
 
-                try
+                switch (option)
                 {
-                    decimal convertedAmount = await currencyService.ConvertCurrency(amount, fromCurrency, toCurrency);
-                    Console.WriteLine($"{amount} {fromCurrency} é equivalente a {convertedAmount} {toCurrency}");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Erro: {ex.Message}");
+                    case 0:
+                        Console.WriteLine("Programa encerrado.");
+                        return;
+                    case 1:
+                        ConvertCurrency(currencyService, userInputService);
+                        break;
+                    case 2:
+                        ViewCurrencyRates(currencyService, userInputService);
+                        break;
+                    default:
+                        Console.WriteLine("Opção inválida. Tente novamente.");
+                        break;
                 }
 
                 Console.WriteLine();
             }
+        }
 
-            Console.WriteLine("Programa encerrado.");
+        static void ConvertCurrency(CurrencyService currencyService, UserInputService userInputService)
+        {
+            decimal amount = userInputService.GetAmount();
+            if (amount == 0)
+            {
+                return;
+            }
+
+            string fromCurrency = userInputService.GetCurrency("Digite a moeda de origem (ex: BRL, ARS, USD, EUR): ");
+            string toCurrency = userInputService.GetCurrency("Digite a moeda de destino (ex: BRL, ARS, USD, EUR): ");
+
+            try
+            {
+                decimal convertedAmount = currencyService.ConvertCurrency(amount, fromCurrency, toCurrency).Result;
+                Console.WriteLine($"{amount} {fromCurrency} é equivalente a {convertedAmount} {toCurrency}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro: {ex.Message}");
+            }
+        }
+
+        static void ViewCurrencyRates(CurrencyService currencyService, UserInputService userInputService)
+        {
+            string currency = userInputService.GetCurrency("Digite a moeda (ex: BRL, ARS, USD, EUR): ");
+
+            try
+            {
+                decimal rate = currencyService.GetExchangeRate(currency, "BRL").Result;
+                Console.WriteLine($"1 {currency} é equivalente a {rate} BRL");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao obter taxa de câmbio: {ex.Message}");
+            }
         }
     }
 }

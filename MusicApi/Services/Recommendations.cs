@@ -54,7 +54,6 @@ namespace SpotifyAPI.Services
             }
         }
 
-
         public void PrintRecommendations(List<JToken> recommendations)
         {
             if (recommendations != null && recommendations.Count > 0)

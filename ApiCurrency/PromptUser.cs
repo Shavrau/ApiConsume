@@ -1,4 +1,6 @@
-﻿namespace CurrencyConverter
+﻿using System;
+
+namespace CurrencyConverter
 {
     public class UserInputService
     {
@@ -28,6 +30,18 @@
                     return currency;
                 }
                 Console.Write($"Moeda inválida. {prompt}");
+            }
+        }
+
+        public int GetOption()
+        {
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out int option))
+                {
+                    return option;
+                }
+                Console.Write("Opção inválida. Digite um número: ");
             }
         }
     }

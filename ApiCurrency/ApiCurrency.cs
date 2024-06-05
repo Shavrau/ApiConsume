@@ -36,5 +36,23 @@ namespace CurrencyConverter
             decimal rate = json["conversion_rates"][toCurrency].Value<decimal>();
             return amount * rate;
         }
+
+        public async Task<decimal> GetExchangeRate(string fromCurrency, string toCurrency)
+        {
+            string url = $"{BaseUrl}{_apiKey}/latest/{fromCurrency}";
+
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+            JObject json = JObject.Parse(responseBody);
+
+            if (json["conversion_rates"][toCurrency] == null)
+            {
+                throw new Exception("Moeda não encontrada.");
+            }
+
+            return json["conversion_rates"][toCurrency].Value<decimal>();
+        }
     }
 }
